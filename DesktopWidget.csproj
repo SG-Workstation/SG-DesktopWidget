@@ -6,11 +6,30 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
+    <SatelliteResourceLanguages>none</SatelliteResourceLanguages>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
   </ItemGroup>
 
+  <Target Name="RemoveLanguageFolders" AfterTargets="Build">
+    <ItemGroup>
+      <LanguageFolders Include="$(OutputPath)cs" />
+      <LanguageFolders Include="$(OutputPath)de" />
+      <LanguageFolders Include="$(OutputPath)es" />
+      <LanguageFolders Include="$(OutputPath)fr" />
+      <LanguageFolders Include="$(OutputPath)it" />
+      <LanguageFolders Include="$(OutputPath)ja" />
+      <LanguageFolders Include="$(OutputPath)ko" />
+      <LanguageFolders Include="$(OutputPath)pl" />
+      <LanguageFolders Include="$(OutputPath)pt-BR" />
+      <LanguageFolders Include="$(OutputPath)ru" />
+      <LanguageFolders Include="$(OutputPath)tr" />
+      <LanguageFolders Include="$(OutputPath)zh-Hans" />
+      <LanguageFolders Include="$(OutputPath)zh-Hant" />
+    </ItemGroup>
+    <RemoveDir Directories="@(LanguageFolders)" ContinueOnError="true" />
+  </Target>
 
 </Project>

@@ -9,6 +9,270 @@
         Topmost="True"
         ShowInTaskbar="False"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- 自定义TextBox样式 -->
+        <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                                Background="#333333" 
+                                BorderBrush="#55FFFFFF" 
+                                BorderThickness="1" 
+                                CornerRadius="5"
+                                Padding="8,5">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Foreground="White"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#88FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#AAFFFFFF"/>
+                                <Setter TargetName="border" Property="Background" Value="#444444"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="SelectionBrush" Value="#88FFFFFF"/>
+            <Setter Property="CaretBrush" Value="White"/>
+        </Style>
+        
+        <!-- 自定义Slider样式 -->
+        <Style x:Key="CustomSliderStyle" TargetType="Slider">
+            <Setter Property="Background" Value="#55FFFFFF"/>
+            <Setter Property="Foreground" Value="#88FFFFFF"/>
+        </Style>
+        
+        <!-- Slider轨道样式 -->
+        <Style x:Key="SliderRepeatButtonStyle" TargetType="RepeatButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Height="4" 
+                                Background="#55FFFFFF" 
+                                CornerRadius="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Slider滑块样式 -->
+        <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse x:Name="thumbEllipse"
+                                Width="16" 
+                                Height="16" 
+                                Fill="#88FFFFFF" 
+                                Stroke="White" 
+                                StrokeThickness="2"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="thumbEllipse" Property="Fill" Value="#AAFFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="thumbEllipse" Property="Fill" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- 自定义ComboBox样式 -->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#55FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <!-- 自定义CheckBox样式 -->
+        <Style x:Key="CustomCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="CheckBorder" 
+                                    Width="16" 
+                                    Height="16" 
+                                    Background="#333333" 
+                                    BorderBrush="#55FFFFFF" 
+                                    BorderThickness="1" 
+                                    CornerRadius="3"
+                                    Margin="0,0,8,0">
+                                <Path x:Name="CheckMark" 
+                                      Stroke="White" 
+                                      StrokeThickness="2" 
+                                      Data="M 3 7 L 6 10 L 13 3" 
+                                      Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CheckBorder" Property="BorderBrush" Value="#88FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="CheckBorder" Property="Background" Value="#555555"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <!-- 自定义RadioButton样式 -->
+        <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="RadioBorder" 
+                                    Width="16" 
+                                    Height="16" 
+                                    Background="#333333" 
+                                    BorderBrush="#55FFFFFF" 
+                                    BorderThickness="1" 
+                                    CornerRadius="8"
+                                    Margin="0,0,8,0">
+                                <Ellipse x:Name="RadioDot" 
+                                         Width="8" 
+                                         Height="8" 
+                                         Fill="White" 
+                                         Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RadioBorder" Property="BorderBrush" Value="#88FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="RadioDot" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="RadioBorder" Property="Background" Value="#555555"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <!-- 自定义DatePicker样式 -->
+        <Style x:Key="CustomDatePickerStyle" TargetType="DatePicker">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#55FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <!-- 自定义按钮样式 -->
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="#444444" 
+                                BorderBrush="#55FFFFFF" 
+                                BorderThickness="1" 
+                                CornerRadius="5"
+                                Padding="10,5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#555555"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#88FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#666666"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <!-- 按钮动画样式 -->
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="#333333" 
+                                CornerRadius="5"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="buttonScale" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                          Storyboard.TargetProperty="Background.Color"
+                                                          To="#555555" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="buttonScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="1.05" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="buttonScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="1.05" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                          Storyboard.TargetProperty="Background.Color"
+                                                          To="#333333" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="buttonScale"
+                                                           Storyboard.TargetProperty="ScaleX"
+                                                           To="1.0" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="buttonScale"
+                                                           Storyboard.TargetProperty="ScaleY"
+                                                           To="1.0" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <!-- 右上角关闭按钮 -->
         <Button x:Name="CloseButton"
@@ -24,415 +288,572 @@
                 Click="CloseButton_Click"
                 Cursor="Hand"/>
         
-        <!-- 滚动视图容器 -->
-        <ScrollViewer Margin="20,50,20,60" 
+        <!-- 左侧分类按钮区域 -->
+        <StackPanel Margin="15,50,0,20" 
+                    Width="80"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
+            <TextBlock Text="设置"
+                       FontSize="14"
+                       Foreground="White"
+                       FontWeight="Bold"
+                       Margin="0,0,0,15"
+                       HorizontalAlignment="Center"/>
+            
+            <Button x:Name="AppearanceButton"
+                    Content="外观"
+                    Width="70"
+                    Height="35"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,8"
+                    Click="AppearanceButton_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource SidebarButtonStyle}"/>
+            
+            <Button x:Name="BehaviorButton"
+                    Content="行为"
+                    Width="70"
+                    Height="35"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,8"
+                    Click="BehaviorButton_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource SidebarButtonStyle}"/>
+            
+            <Button x:Name="ContentButton"
+                    Content="内容"
+                    Width="70"
+                    Height="35"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,8"
+                    Click="ContentButton_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource SidebarButtonStyle}"/>
+            
+            <Button x:Name="AvatarButton"
+                    Content="头像"
+                    Width="70"
+                    Height="35"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,8"
+                    Click="AvatarButton_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource SidebarButtonStyle}"/>
+            
+            <Button x:Name="PluginButton"
+                    Content="插件"
+                    Width="70"
+                    Height="35"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,8"
+                    Click="PluginButton_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource SidebarButtonStyle}"/>
+        </StackPanel>
+        
+        <!-- 右侧内容显示区域 -->
+        <ScrollViewer Margin="110,50,20,60" 
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
                       Background="Transparent">
             <StackPanel>
-            <TextBlock Text="设置"
-                       FontSize="18"
-                       Foreground="White"
-                       FontWeight="Bold"
-                       Margin="0,0,0,20"/>
-                       
-            <!-- 窗口外观设置组 -->
-            <GroupBox Header="窗口外观" Margin="0,0,0,15" Background="#222222" BorderBrush="White" BorderThickness="1" Foreground="White">
-                <StackPanel Margin="10">
-                    <!-- 主题颜色设置 -->
-                    <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="主题颜色 (16进制)"
-                                   FontSize="14"
+            
+            <!-- 窗口外观设置内容 -->
+            <StackPanel x:Name="AppearancePanel" Visibility="Visible">
+                <TextBlock Text="窗口外观设置"
+                           FontSize="18"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+                
+                <!-- 主题颜色设置 -->
+                <StackPanel Margin="0,0,0,15">
+                    <TextBlock Text="主题颜色 (16进制)"
+                               FontSize="14"
+                               Foreground="White"
+                               Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="ThemeColorTextBox"
+                                 Width="120"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="#AA222222"/>
+                        <TextBlock Text=" 例如: #AA222222"
+                                   FontSize="12"
+                                   Foreground="Gray"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <!-- 透明度设置 -->
+                <StackPanel Margin="0,0,0,15">
+                    <TextBlock Text="透明度设置"
+                               FontSize="14"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+                    
+                    <!-- 背景透明度 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="背景透明度"
+                                   FontSize="12"
                                    Foreground="White"
                                    Margin="0,0,0,5"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox x:Name="ThemeColorTextBox"
-                                     Width="120"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="#AA222222"/>
-                            <TextBlock Text=" 例如: #AA222222"
+                            <Slider x:Name="BackgroundOpacitySlider"
+                                    Width="200"
+                                    Minimum="0.1"
+                                    Maximum="1.0"
+                                    Value="0.7"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="BackgroundOpacityText"
+                                       Text="70%"
                                        FontSize="12"
-                                       Foreground="Gray"
+                                       Foreground="White"
                                        Margin="10,0,0,0"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     
-                    <!-- 透明度设置 -->
-                    <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="透明度设置"
-                                   FontSize="14"
+                    <!-- 文字透明度 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="文字透明度"
+                                   FontSize="12"
                                    Foreground="White"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,10"/>
-                        
-                        <!-- 背景透明度 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="背景透明度"
+                                   Margin="0,0,0,5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Slider x:Name="TextOpacitySlider"
+                                    Width="200"
+                                    Minimum="0.1"
+                                    Maximum="1.0"
+                                    Value="1.0"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="TextOpacityText"
+                                       Text="100%"
                                        FontSize="12"
                                        Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="BackgroundOpacitySlider"
-                                        Width="200"
-                                        Minimum="0.1"
-                                        Maximum="1.0"
-                                        Value="0.7"
-                                        TickFrequency="0.1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="BackgroundOpacityText"
-                                           Text="70%"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </StackPanel>
-                        
-                        <!-- 文字透明度 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="文字透明度"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="TextOpacitySlider"
-                                        Width="200"
-                                        Minimum="0.1"
-                                        Maximum="1.0"
-                                        Value="1.0"
-                                        TickFrequency="0.1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="TextOpacityText"
-                                           Text="100%"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </StackPanel>
-                        
-                        <!-- 中间爱心透明度 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="中间爱心透明度"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="CenterHeartOpacitySlider"
-                                        Width="200"
-                                        Minimum="0.1"
-                                        Maximum="1.0"
-                                        Value="1.0"
-                                        TickFrequency="0.1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="CenterHeartOpacityText"
-                                           Text="100%"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </StackPanel>
-                        
-                        <!-- 圆角设置 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="圆角角度"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="CornerRadiusSlider"
-                                        Width="200"
-                                        Minimum="0"
-                                        Maximum="50"
-                                        Value="16"
-                                        TickFrequency="1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="CornerRadiusText"
-                                           Text="16"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <TextBlock Text="（设置为0时为直角）"
-                                       FontSize="10"
-                                       Foreground="Gray"
-                                       Margin="0,5,0,0"/>
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     
-                    <!-- 字体和显示设置 -->
-                    <StackPanel Margin="0,0,0,15">
-                        <!-- 字体大小设置 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="字体大小"
-                                       FontSize="14"
+                    <!-- 中间爱心透明度 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="中间爱心透明度"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Slider x:Name="CenterHeartOpacitySlider"
+                                    Width="200"
+                                    Minimum="0.1"
+                                    Maximum="1.0"
+                                    Value="1.0"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="CenterHeartOpacityText"
+                                       Text="100%"
+                                       FontSize="12"
                                        Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <ComboBox x:Name="FontSizeComboBox"
-                                      Width="200" 
-                                      HorizontalAlignment="Left"
-                                      Background="#333333"
-                                      Foreground="White">
-                                <ComboBoxItem Content="小"/>
-                                <ComboBoxItem Content="中" IsSelected="True"/>
-                                <ComboBoxItem Content="大"/>
-                            </ComboBox>
-                        </StackPanel>
-                        
-                        <!-- 位置设置 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <TextBlock Text="位置"
-                                       FontSize="14"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <ComboBox x:Name="PositionComboBox"
-                                      Width="200" 
-                                      HorizontalAlignment="Left"
-                                      Background="#333333"
-                                      Foreground="White">
-                                <ComboBoxItem Content="右上角" IsSelected="True"/>
-                                <ComboBoxItem Content="左上角"/>
-                                <ComboBoxItem Content="右下角"/>
-                                <ComboBoxItem Content="左下角"/>
-                                <ComboBoxItem Content="中央"/>
-                            </ComboBox>
-                        </StackPanel>
-                        
-                        <!-- 显示秒数设置 -->
-                        <StackPanel Margin="0,0,0,10">
-                            <CheckBox x:Name="ShowSecondsCheckBox"
-                                      Content="显示秒数"
-                                      Foreground="White"
-                                      IsChecked="True"/>
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </GroupBox>
-            
-            <!-- 窗口行为设置组 -->
-            <GroupBox Header="窗口行为" Margin="0,0,0,15" Background="#222222" BorderBrush="White" BorderThickness="1" Foreground="White">
-                <StackPanel Margin="10">
+                    
+                    <!-- 圆角设置 -->
                     <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="圆角角度"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Slider x:Name="CornerRadiusSlider"
+                                    Width="200"
+                                    Minimum="0"
+                                    Maximum="50"
+                                    Value="16"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="CornerRadiusText"
+                                       Text="16"
+                                       FontSize="12"
+                                       Foreground="White"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="（设置为0时为直角）"
+                                   FontSize="10"
+                                   Foreground="Gray"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <!-- 字体和显示设置 -->
+                <StackPanel Margin="0,0,0,15">
+                    <!-- 字体大小设置 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="字体大小"
+                                   FontSize="14"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <ComboBox x:Name="FontSizeComboBox"
+                                  Width="200" 
+                                  HorizontalAlignment="Left"
+                                  Style="{StaticResource CustomComboBoxStyle}">
+                            <ComboBoxItem Content="小"/>
+                            <ComboBoxItem Content="中" IsSelected="True"/>
+                            <ComboBoxItem Content="大"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <!-- 位置设置 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="位置"
+                                   FontSize="14"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <ComboBox x:Name="PositionComboBox"
+                                  Width="200" 
+                                  HorizontalAlignment="Left"
+                                  Style="{StaticResource CustomComboBoxStyle}">
+                            <ComboBoxItem Content="右上角" IsSelected="True"/>
+                            <ComboBoxItem Content="左上角"/>
+                            <ComboBoxItem Content="右下角"/>
+                            <ComboBoxItem Content="左下角"/>
+                            <ComboBoxItem Content="中央"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <!-- 显示秒数设置 -->
+                    <StackPanel Margin="0,0,0,10">
+                        <CheckBox x:Name="ShowSecondsCheckBox"
+                                  Content="显示秒数"
+                                  Style="{StaticResource CustomCheckBoxStyle}"
+                                  IsChecked="True"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            
+            <!-- 窗口行为设置内容 -->
+            <StackPanel x:Name="BehaviorPanel" Visibility="Collapsed">
+                <TextBlock Text="窗口行为设置"
+                           FontSize="18"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+                
+                <StackPanel Margin="0,0,0,15">
+                    <StackPanel Margin="0,0,0,15">
                         <CheckBox x:Name="ShowInTaskbarCheckBox"
                                   Content="显示在任务栏"
-                                  Foreground="White"/>
+                                  Style="{StaticResource CustomCheckBoxStyle}"/>
                     </StackPanel>
                     
-                    <StackPanel Margin="0,0,0,10">
+                    <StackPanel Margin="0,0,0,15">
                         <CheckBox x:Name="StartWithWindowsCheckBox"
                                   Content="开机自启动"
-                                  Foreground="White"/>
+                                  Style="{StaticResource CustomCheckBoxStyle}"/>
                     </StackPanel>
                     
-                    <StackPanel Margin="0,0,0,10">
+                    <StackPanel Margin="0,0,0,15">
                         <CheckBox x:Name="IsTopmostCheckBox"
                                   Content="窗口置顶"
-                                  Foreground="White"/>
+                                  Style="{StaticResource CustomCheckBoxStyle}"/>
                     </StackPanel>
                 </StackPanel>
-            </GroupBox>
+            </StackPanel>
             
-            <!-- 内容设置组 -->
-            <GroupBox Header="内容设置" Margin="0,0,0,15" Background="#222222" BorderBrush="White" BorderThickness="1" Foreground="White">
-                <StackPanel Margin="10">
-                    <!-- 自定义文本设置 -->
-                    <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="自定义文本"
-                                   FontSize="14"
+            <!-- 内容设置内容 -->
+            <StackPanel x:Name="ContentPanel" Visibility="Collapsed">
+                <TextBlock Text="内容设置"
+                           FontSize="18"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+                
+                <!-- 自定义文本设置 -->
+                <StackPanel Margin="0,0,0,15">
+                    <TextBlock Text="自定义文本"
+                               FontSize="14"
+                               Foreground="White"
+                               Margin="0,0,0,5"/>
+                    <TextBox x:Name="CustomTextTextBox"
+                             Width="200"
+                             Style="{StaticResource CustomTextBoxStyle}"
+                             Text="我们一起"/>
+                </StackPanel>
+                
+                <!-- 起始时间设置 -->
+                <StackPanel Margin="0,0,0,15">
+                    <TextBlock Text="起始时间"
+                               FontSize="14"
+                               Foreground="White"
+                               Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <DatePicker x:Name="StartDatePicker"
+                                    Width="120"
+                                    Style="{StaticResource CustomDatePickerStyle}"
+                                    SelectedDateFormat="Short"/>
+                        <TextBlock Text=" "
+                                   Width="10"/>
+                        <TextBox x:Name="StartTimeTextBox"
+                                 Width="80"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="00:27:00"/>
+                        <TextBlock Text=" (格式: HH:mm:ss)"
+                                   FontSize="12"
+                                   Foreground="Gray"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            
+            <!-- 头像设置内容 -->
+            <StackPanel x:Name="AvatarPanel" Visibility="Collapsed">
+                <TextBlock Text="头像设置"
+                           FontSize="18"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+                
+                <!-- 左下角头像 -->
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="左下角头像"
+                               FontSize="14"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+                    
+                    <!-- 左下角头像模式选择 -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <RadioButton x:Name="LeftAvatarLocalModeRadioButton" Content="本地模式" GroupName="LeftAvatarMode" Margin="0,0,10,0" Style="{StaticResource CustomRadioButtonStyle}" IsChecked="True"/>
+                        <RadioButton x:Name="LeftAvatarOnlineModeRadioButton" Content="在线模式" GroupName="LeftAvatarMode" Style="{StaticResource CustomRadioButtonStyle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBox x:Name="LeftAvatarPathTextBox"
+                                 Width="250"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="https://lxstu.sgstudio2025.xyz/1.png"/>
+                        <Button x:Name="BrowseLeftAvatarButton"
+                                Content="浏览"
+                                Width="60"
+                                Height="25"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Margin="10,0,0,0"
+                                Click="BrowseLeftAvatarButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
+                        <TextBlock Text="名称:"
+                                   FontSize="12"
                                    Foreground="White"
-                                   Margin="0,0,0,5"/>
-                        <TextBox x:Name="CustomTextTextBox"
-                                 Width="200"
-                                 Background="#333333"
-                                 Foreground="White"
-                                 BorderThickness="1"
-                                 BorderBrush="White"
-                                 Text="我们一起"/>
+                                   Width="40"
+                                   VerticalAlignment="Center"/>
+                        <TextBox x:Name="LeftAvatarNameTextBox"
+                                 Width="150"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="text"/>
                     </StackPanel>
                     
-                    <!-- 起始时间设置 -->
-                    <StackPanel Margin="0,0,0,15">
-                        <TextBlock Text="起始时间"
-                                   FontSize="14"
+                    <!-- 左下角头像透明度 -->
+                    <StackPanel>
+                        <TextBlock Text="头像透明度"
+                                   FontSize="12"
                                    Foreground="White"
                                    Margin="0,0,0,5"/>
                         <StackPanel Orientation="Horizontal">
-                            <DatePicker x:Name="StartDatePicker"
-                                        Width="120"
-                                        Background="#333333"
-                                        Foreground="White"
-                                        BorderThickness="1"
-                                        BorderBrush="White"
-                                        SelectedDateFormat="Short"/>
-                            <TextBlock Text=" "
-                                       Width="10"/>
-                            <TextBox x:Name="StartTimeTextBox"
-                                     Width="80"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="00:27:00"/>
-                            <TextBlock Text=" (格式: HH:mm:ss)"
+                            <Slider x:Name="LeftAvatarOpacitySlider"
+                                    Width="200"
+                                    Minimum="0.1"
+                                    Maximum="1.0"
+                                    Value="1.0"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="LeftAvatarOpacityText"
+                                       Text="100%"
                                        FontSize="12"
-                                       Foreground="Gray"
+                                       Foreground="White"
                                        Margin="10,0,0,0"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-            </GroupBox>
-            
-            <!-- 头像设置组 -->
-            <GroupBox Header="头像设置" Margin="0,0,0,15" Background="#222222" BorderBrush="White" BorderThickness="1" Foreground="White">
-                <StackPanel Margin="10">
-                    <!-- 左下角头像 -->
-                    <StackPanel Margin="0,0,0,10">
-                        <TextBlock Text="左下角头像"
+                
+                <!-- 右下角头像 -->
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="右下角头像"
+                               FontSize="14"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+                    
+                    <!-- 右下角头像模式选择 -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <RadioButton x:Name="RightAvatarLocalModeRadioButton" Content="本地模式" GroupName="RightAvatarMode" Margin="0,0,10,0" Style="{StaticResource CustomRadioButtonStyle}" IsChecked="True"/>
+                        <RadioButton x:Name="RightAvatarOnlineModeRadioButton" Content="在线模式" GroupName="RightAvatarMode" Style="{StaticResource CustomRadioButtonStyle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBox x:Name="RightAvatarPathTextBox"
+                                 Width="250"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="https://lxstu.sgstudio2025.xyz/2.png"/>
+                        <Button x:Name="BrowseRightAvatarButton"
+                                Content="浏览"
+                                Width="60"
+                                Height="25"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Margin="10,0,0,0"
+                                Click="BrowseRightAvatarButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
+                        <TextBlock Text="名称:"
                                    FontSize="12"
                                    Foreground="White"
-                                   Margin="0,0,0,5"/>
-                        <!-- 左下角头像模式选择 -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <RadioButton x:Name="LeftAvatarLocalModeRadioButton" Content="本地模式" GroupName="LeftAvatarMode" Margin="0,0,10,0" Foreground="White" IsChecked="True"/>
-                            <RadioButton x:Name="LeftAvatarOnlineModeRadioButton" Content="在线模式" GroupName="LeftAvatarMode" Foreground="White"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox x:Name="LeftAvatarPathTextBox"
-                                     Width="250"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="https://lxstu.sgstudio2025.xyz/1.png"/>
-                            <Button x:Name="BrowseLeftAvatarButton"
-                                    Content="浏览"
-                                    Width="60"
-                                    Height="25"
-                                    Background="#666666"
-                                    Foreground="White"
-                                    BorderThickness="1"
-                                    BorderBrush="White"
-                                    Margin="10,0,0,0"
-                                    Click="BrowseLeftAvatarButton_Click"
-                                    Cursor="Hand"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <TextBlock Text="名称:"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Width="40"
-                                       VerticalAlignment="Center"/>
-                            <TextBox x:Name="LeftAvatarNameTextBox"
-                                     Width="150"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="text"/>
-                        </StackPanel>
-                        
-                        <!-- 左下角头像透明度 -->
-                        <StackPanel Margin="0,10,0,0">
-                            <TextBlock Text="头像透明度"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="LeftAvatarOpacitySlider"
-                                        Width="200"
-                                        Minimum="0.1"
-                                        Maximum="1.0"
-                                        Value="1.0"
-                                        TickFrequency="0.1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="LeftAvatarOpacityText"
-                                           Text="100%"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </StackPanel>
+                                   Width="40"
+                                   VerticalAlignment="Center"/>
+                        <TextBox x:Name="RightAvatarNameTextBox"
+                                 Width="150"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 Text="text"/>
                     </StackPanel>
                     
-                    <!-- 右下角头像 -->
-                    <StackPanel Margin="0,0,0,10">
-                        <TextBlock Text="右下角头像"
+                    <!-- 右下角头像透明度 -->
+                    <StackPanel>
+                        <TextBlock Text="头像透明度"
                                    FontSize="12"
                                    Foreground="White"
                                    Margin="0,0,0,5"/>
-                        <!-- 右下角头像模式选择 -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <RadioButton x:Name="RightAvatarLocalModeRadioButton" Content="本地模式" GroupName="RightAvatarMode" Margin="0,0,10,0" Foreground="White" IsChecked="True"/>
-                            <RadioButton x:Name="RightAvatarOnlineModeRadioButton" Content="在线模式" GroupName="RightAvatarMode" Foreground="White"/>
-                        </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox x:Name="RightAvatarPathTextBox"
-                                     Width="250"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="https://lxstu.sgstudio2025.xyz/2.png"/>
-                            <Button x:Name="BrowseRightAvatarButton"
-                                    Content="浏览"
-                                    Width="60"
-                                    Height="25"
-                                    Background="#666666"
-                                    Foreground="White"
-                                    BorderThickness="1"
-                                    BorderBrush="White"
-                                    Margin="10,0,0,0"
-                                    Click="BrowseRightAvatarButton_Click"
-                                    Cursor="Hand"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <TextBlock Text="名称:"
+                            <Slider x:Name="RightAvatarOpacitySlider"
+                                    Width="200"
+                                    Minimum="0.1"
+                                    Maximum="1.0"
+                                    Value="1.0"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    Style="{StaticResource CustomSliderStyle}"/>
+                            <TextBlock x:Name="RightAvatarOpacityText"
+                                       Text="100%"
                                        FontSize="12"
                                        Foreground="White"
-                                       Width="40"
+                                       Margin="10,0,0,0"
                                        VerticalAlignment="Center"/>
-                            <TextBox x:Name="RightAvatarNameTextBox"
-                                     Width="150"
-                                     Background="#333333"
-                                     Foreground="White"
-                                     BorderThickness="1"
-                                     BorderBrush="White"
-                                     Text="text"/>
-                        </StackPanel>
-                        
-                        <!-- 右下角头像透明度 -->
-                        <StackPanel Margin="0,10,0,0">
-                            <TextBlock Text="头像透明度"
-                                       FontSize="12"
-                                       Foreground="White"
-                                       Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Slider x:Name="RightAvatarOpacitySlider"
-                                        Width="200"
-                                        Minimum="0.1"
-                                        Maximum="1.0"
-                                        Value="1.0"
-                                        TickFrequency="0.1"
-                                        IsSnapToTickEnabled="True"/>
-                                <TextBlock x:Name="RightAvatarOpacityText"
-                                           Text="100%"
-                                           FontSize="12"
-                                           Foreground="White"
-                                           Margin="10,0,0,0"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-            </GroupBox>
+            </StackPanel>
+            
+            <!-- 插件设置内容 -->
+            <StackPanel x:Name="PluginPanel" Visibility="Collapsed">
+                <TextBlock Text="插件设置"
+                           FontSize="18"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+                
+                <!-- 插件列表 -->
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="已安装插件"
+                               FontSize="14"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+                    
+                    <ListBox x:Name="PluginListBox"
+                             Width="300"
+                             Height="150"
+                             Background="#333333"
+                             Foreground="White"
+                             BorderBrush="#55FFFFFF"
+                             BorderThickness="1"
+                             SelectionChanged="PluginListBox_SelectionChanged">
+                    </ListBox>
+                </StackPanel>
+                
+                <!-- 插件操作按钮 -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Button x:Name="AddPluginButton"
+                            Content="添加插件"
+                            Width="80"
+                            Height="30"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Margin="0,0,10,0"
+                            Click="AddPluginButton_Click"/>
+                    <Button x:Name="RemovePluginButton"
+                            Content="移除插件"
+                            Width="80"
+                            Height="30"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Margin="0,0,10,0"
+                            Click="RemovePluginButton_Click"/>
+                    <Button x:Name="ConfigurePluginButton"
+                            Content="配置插件"
+                            Width="80"
+                            Height="30"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Click="ConfigurePluginButton_Click"/>
+                </StackPanel>
+                
+                <!-- 插件信息 -->
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="插件信息"
+                               FontSize="14"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+                    
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="名称:"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <TextBox x:Name="PluginNameTextBox"
+                                 Width="300"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 IsReadOnly="True"
+                                 Text="未选择插件"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="版本:"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <TextBox x:Name="PluginVersionTextBox"
+                                 Width="300"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 IsReadOnly="True"
+                                 Text="未选择插件"/>
+                    </StackPanel>
+                    
+                    <StackPanel>
+                        <TextBlock Text="描述:"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Margin="0,0,0,5"/>
+                        <TextBox x:Name="PluginDescriptionTextBox"
+                                 Width="300"
+                                 Height="80"
+                                 Style="{StaticResource CustomTextBoxStyle}"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Text="未选择插件"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
             </StackPanel>
         </ScrollViewer>
         
@@ -445,23 +866,15 @@
                     Content="应用"
                     Width="80"
                     Height="30"
-                    Background="#666666"
-                    Foreground="White"
-                    BorderThickness="1"
-                    BorderBrush="White"
+                    Style="{StaticResource CustomButtonStyle}"
                     Margin="0,0,10,0"
-                    Click="ApplyButton_Click"
-                    Cursor="Hand"/>
+                    Click="ApplyButton_Click"/>
             <Button x:Name="SaveButton"
                     Content="保存设置"
                     Width="100"
                     Height="30"
-                    Background="#666666"
-                    Foreground="White"
-                    BorderThickness="1"
-                    BorderBrush="White"
-                    Click="SaveButton_Click"
-                    Cursor="Hand"/>
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="SaveButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

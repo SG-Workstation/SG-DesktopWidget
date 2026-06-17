@@ -38,23 +38,8 @@ namespace DesktopWidget
             this.WindowStartupLocation = WindowStartupLocation.Manual;
 
             this.MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
-
-            // 添加右键菜单
-            var contextMenu = new ContextMenu();
-            
-            var pinMenuItem = new MenuItem { Header = isPinned ? "取消固定" : "固定" };
-            pinMenuItem.Click += PinMenuItem_Click;
-            contextMenu.Items.Add(pinMenuItem);
-            
-            var settingsMenuItem = new MenuItem { Header = "设置" };
-            settingsMenuItem.Click += SettingsMenuItem_Click;
-            contextMenu.Items.Add(settingsMenuItem);
-            
-            var closeMenuItem = new MenuItem { Header = "关闭" };
-            closeMenuItem.Click += (sender, e) => this.Close();
-            contextMenu.Items.Add(closeMenuItem);
-            
-            this.ContextMenu = contextMenu;
+            this.MouseRightButtonUp += MainWindow_MouseRightButtonUp;
+            this.Deactivated += MainWindow_Deactivated;
 
             // 定时器{diff.Seconds}秒
             timer = new DispatcherTimer
@@ -89,8 +74,19 @@ namespace DesktopWidget
 
         
 
+        private void MainWindow_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // 更新固定菜单项的文本
+            UpdatePinMenuItem();
+            
+            // 显示自定义右键菜单
+            CustomContextMenu.IsOpen = true;
+            e.Handled = true; // 阻止默认右键菜单
+        }
+
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            CustomContextMenu.IsOpen = false;
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
             settingsWindow.Show();
@@ -100,17 +96,31 @@ namespace DesktopWidget
         {
             isPinned = !isPinned;
             UpdatePinMenuItem();
+            CustomContextMenu.IsOpen = false;
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CloseMenuMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CustomContextMenu.IsOpen = false;
+        }
+
+        private void MainWindow_Deactivated(object? sender, EventArgs e)
+        {
+            // 当窗口失去焦点时关闭右键菜单
+            CustomContextMenu.IsOpen = false;
         }
 
         private void UpdatePinMenuItem()
         {
-            if (this.ContextMenu != null && this.ContextMenu.Items.Count > 0)
+            var pinMenuItem = this.FindName("PinMenuItem") as Button;
+            if (pinMenuItem != null)
             {
-                var pinMenuItem = this.ContextMenu.Items[0] as MenuItem;
-                if (pinMenuItem != null)
-                {
-                    pinMenuItem.Header = isPinned ? "取消固定" : "固定";
-                }
+                pinMenuItem.Content = isPinned ? "取消固定" : "固定";
             }
         }
 
